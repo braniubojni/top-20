@@ -5,6 +5,7 @@ import { AppModule } from '../src/app.module';
 import { CreateReviewDto } from 'src/review/dto/create-review.dto';
 import { disconnect, Types } from 'mongoose';
 import { FEEDBACK, notFound } from '../src/review/review.constants';
+import { doesNotMatch } from 'assert';
 
 const productId = new Types.ObjectId().toHexString();
 
@@ -33,12 +34,27 @@ describe('AppController (e2e)', () => {
 		request(app.getHttpServer())
 			.post('/review/create')
 			.send(testDto)
-			.expect(201) // have error, don't have any product
+			.expect(201)
 			.then(({ body }: request.Response) => {
 				createdId = body._id;
 				expect(createdId).toBeDefined();
 				done();
 			});
+	});
+
+	it('/review/create (POST) - fail', (done) => {
+		request(app.getHttpServer())
+			.post('/review/create')
+			.send({ ...testDto, rating: 0 })
+			.expect(
+				400,
+				{
+					statusCode: 400,
+					message: ['rating must be less than 1'],
+					error: 'Bad Request',
+				},
+				() => done(),
+			);
 	});
 
 	it('/byProduct/:productId (GET) - success', async () => {
