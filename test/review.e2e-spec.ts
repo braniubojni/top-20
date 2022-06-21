@@ -4,8 +4,7 @@ import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { CreateReviewDto } from 'src/review/dto/create-review.dto';
 import { disconnect, Types } from 'mongoose';
-import { FEEDBACK, notFound } from '../src/review/review.constants';
-import { doesNotMatch } from 'assert';
+import { NOT_FOUND_ID } from '../src/common/exceptions/not-found.constants';
 
 const productId = new Types.ObjectId().toHexString();
 
@@ -88,7 +87,7 @@ describe('AppController (e2e)', () => {
 		return request(app.getHttpServer())
 			.delete('/review/' + id)
 			.expect(404, {
-				message: notFound(FEEDBACK, id),
+				message: NOT_FOUND_ID,
 				statusCode: 404,
 			});
 	});

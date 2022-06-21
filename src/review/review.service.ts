@@ -2,8 +2,8 @@ import { HttpException, Inject, Injectable, HttpStatus } from '@nestjs/common';
 import { DocumentType, ModelType } from '@typegoose/typegoose/lib/types';
 import { Types } from 'mongoose';
 import { InjectModel } from 'nestjs-typegoose';
+import { NOT_FOUND_ID } from '../common/exceptions/not-found.constants';
 import { CreateReviewDto } from './dto/create-review.dto';
-import { FEEDBACK, notFound } from './review.constants';
 import { ReviewModel } from './review.model';
 
 @Injectable()
@@ -20,7 +20,7 @@ export class ReviewService {
 	async delete(id: string): Promise<DocumentType<ReviewModel> | null> {
 		const deletedDoc = await this.reviewModel.findByIdAndDelete(id).exec();
 		if (!deletedDoc) {
-			throw new HttpException(notFound(FEEDBACK, id), HttpStatus.NOT_FOUND);
+			throw new HttpException(NOT_FOUND_ID, HttpStatus.NOT_FOUND);
 		}
 		return deletedDoc;
 	}
@@ -46,7 +46,7 @@ export class ReviewService {
 	private async getById(id: string): Promise<DocumentType<ReviewModel> | null> {
 		const found = await this.reviewModel.findById(id).exec();
 		if (!found) {
-			throw new HttpException(notFound(FEEDBACK, id), HttpStatus.NOT_FOUND);
+			throw new HttpException(NOT_FOUND_ID, HttpStatus.NOT_FOUND);
 		}
 		return found;
 	}
