@@ -1,10 +1,18 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+	BadRequestException,
+	HttpException,
+	HttpStatus,
+	Injectable,
+} from '@nestjs/common';
 import { ModelType, DocumentType } from '@typegoose/typegoose/lib/types';
 import { InjectModel } from 'nestjs-typegoose';
 import { AuthDto } from './dto/auth.dto';
 import { UserModel } from './user.model';
 import { genSaltSync, hashSync } from 'bcryptjs';
-import { NOT_FOUND_USR } from '../common/exceptions/not-found.constants';
+import {
+	NOT_FOUND_USR,
+	USR_ALREADY_EXIST,
+} from '../common/exceptions/not-found.constants';
 
 @Injectable()
 export class AuthService {
@@ -13,9 +21,9 @@ export class AuthService {
 	) {}
 
 	async createUser(dto: AuthDto): Promise<DocumentType<UserModel>> {
-		const existUsr = this.getOneUser(dto.login);
+		const existUsr = await this.userModel.findOne({ email: dto.login }).exec();
 		if (existUsr) {
-			throw new HttpException(NOT_FOUND_USR, HttpStatus.NOT_FOUND);
+			throw new BadRequestException(USR_ALREADY_EXIST);
 		}
 		const salt = genSaltSync(10);
 		const newUser = new this.userModel({
