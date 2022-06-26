@@ -1,4 +1,4 @@
-import { HttpException, Inject, Injectable, HttpStatus } from '@nestjs/common';
+import { HttpException, Injectable, HttpStatus } from '@nestjs/common';
 import { DocumentType, ModelType } from '@typegoose/typegoose/lib/types';
 import { Types } from 'mongoose';
 import { InjectModel } from 'nestjs-typegoose';
