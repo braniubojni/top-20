@@ -28,7 +28,6 @@ export class ReviewController {
 		return this.reviewService.delete(id);
 	}
 
-	@UseGuards(JwtAuthGuard)
 	@Get('byProduct/:productId')
 	async get(@Param('productId') productId: string) {
 		return this.reviewService.findByProductId(productId);

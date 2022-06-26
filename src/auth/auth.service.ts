@@ -13,7 +13,7 @@ import { compare, genSalt, hash } from 'bcryptjs';
 import {
 	NOT_FOUND_USR,
 	USR_ALREADY_EXIST,
-	WROND_PASSWORD,
+	WRONG_PASSWORD,
 } from '../common/exceptions/not-found.constants';
 import { JwtService } from '@nestjs/jwt';
 
@@ -63,7 +63,7 @@ export class AuthService {
 		const isCorrectPass = await compare(password, user.passwordHash);
 		if (!isCorrectPass) {
 			/** Validating password */
-			throw new UnauthorizedException(WROND_PASSWORD);
+			throw new UnauthorizedException(WRONG_PASSWORD);
 		}
 		return {
 			email: user.email,
