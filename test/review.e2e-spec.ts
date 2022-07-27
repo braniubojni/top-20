@@ -24,7 +24,7 @@ const testDto: CreateReviewDto = {
 
 describe('AppController (e2e)', () => {
 	let app: INestApplication;
-	let createdId: string;
+	let createdId: Required<Types.ObjectId>;
 	let token: string;
 
 	beforeEach(async () => {

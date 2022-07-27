@@ -8,6 +8,7 @@ import {
 	Patch,
 	Post,
 } from '@nestjs/common';
+import { Types } from 'mongoose';
 import { FindTopPageDto } from './dto/find-top-page.dto';
 import { TopPageModel } from './top-page.model';
 ``;
@@ -17,13 +18,13 @@ export class TopPageController {
 	async create(@Body() dto: Omit<TopPageModel, '_id'>) {}
 
 	@Get(':id')
-	async get(@Param('id') id: string) {}
+	async get(@Param('id') id: Required<Types.ObjectId>) {}
 
 	@Patch(':id')
-	async patch(@Param('id') id: string, dto: TopPageModel) {}
+	async patch(@Param('id') id: Required<Types.ObjectId>, dto: TopPageModel) {}
 
 	@Delete(':id')
-	async delete(@Param('id') id: string) {}
+	async delete(@Param('id') id: Required<Types.ObjectId>) {}
 
 	@HttpCode(200)
 	@Post()

@@ -14,10 +14,13 @@ export class ReviewService {
 	) {}
 
 	async create(dto: CreateReviewDto): Promise<DocumentType<ReviewModel>> {
-		return await this.reviewModel.create(dto);
+		const review = await this.reviewModel.create(dto);
+		return review;
 	}
 
-	async delete(id: string): Promise<DocumentType<ReviewModel> | null> {
+	async delete(
+		id: Required<Types.ObjectId>,
+	): Promise<DocumentType<ReviewModel> | null> {
 		const deletedDoc = await this.reviewModel.findByIdAndDelete(id).exec();
 		if (!deletedDoc) {
 			throw new HttpException(NOT_FOUND_ID, HttpStatus.NOT_FOUND);
@@ -26,14 +29,14 @@ export class ReviewService {
 	}
 
 	async findByProductId(
-		productId: string,
+		productId: Required<Types.ObjectId>,
 	): Promise<DocumentType<ReviewModel>[]> {
 		return await this.reviewModel
 			.find({ productId: new Types.ObjectId(productId) })
 			.exec();
 	}
 
-	async deleteByProductId(productId: string) {
+	async deleteByProductId(productId: Required<Types.ObjectId>) {
 		const deletedDoc = await this.getById(productId);
 
 		return this.reviewModel
@@ -43,7 +46,9 @@ export class ReviewService {
 			.exec();
 	}
 
-	private async getById(id: string): Promise<DocumentType<ReviewModel> | null> {
+	private async getById(
+		id: Required<Types.ObjectId>,
+	): Promise<DocumentType<ReviewModel> | null> {
 		const found = await this.reviewModel.findById(id).exec();
 		if (!found) {
 			throw new HttpException(NOT_FOUND_ID, HttpStatus.NOT_FOUND);

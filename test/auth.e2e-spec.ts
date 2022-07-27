@@ -1,6 +1,6 @@
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { disconnect } from 'mongoose';
+import { disconnect, Types } from 'mongoose';
 import { AuthDto } from 'src/auth/dto/auth.dto';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
@@ -12,7 +12,7 @@ const loginDto: AuthDto = {
 
 describe('Auth Controller (e2e)', () => {
 	let app: INestApplication;
-	let createdId: string;
+	let createdId: Required<Types.ObjectId>;
 	let token: string;
 
 	beforeEach(async () => {

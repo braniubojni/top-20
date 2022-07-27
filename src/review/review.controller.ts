@@ -9,6 +9,7 @@ import {
 	UsePipes,
 	ValidationPipe,
 } from '@nestjs/common';
+import { Types } from 'mongoose';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { ReviewService } from './review.service';
@@ -24,17 +25,17 @@ export class ReviewController {
 	}
 
 	@Delete(':id')
-	async delete(@Param('id') id: string) {
+	async delete(@Param('id') id: Required<Types.ObjectId>) {
 		return this.reviewService.delete(id);
 	}
 
 	@Get('byProduct/:productId')
-	async get(@Param('productId') productId: string) {
+	async get(@Param('productId') productId: Required<Types.ObjectId>) {
 		return this.reviewService.findByProductId(productId);
 	}
 
 	@Delete('byProduct/:productId')
-	async deleteAll(@Param('productId') productId: string) {
+	async deleteAll(@Param('productId') productId: Required<Types.ObjectId>) {
 		return this.reviewService.deleteByProductId(productId);
 	}
 }
