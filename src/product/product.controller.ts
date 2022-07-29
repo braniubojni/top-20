@@ -6,7 +6,6 @@ import {
 	Get,
 	Param,
 	Post,
-	HttpCode,
 	UsePipes,
 	ValidationPipe,
 } from '@nestjs/common';
@@ -14,7 +13,6 @@ import { Types } from 'mongoose';
 import { MongoObjectIdDto } from 'src/common/dto/mongo-object-id.dto';
 import { CreateProductDto } from './dto/create-product.dto';
 import { FindProductDto } from './dto/find-product.dto';
-import { ProductModel } from './product.model';
 import { ProductService } from './product.service';
 
 @UsePipes(new ValidationPipe())
