@@ -9,8 +9,7 @@ import {
 	UsePipes,
 	ValidationPipe,
 } from '@nestjs/common';
-import { Types } from 'mongoose';
-import { MongoObjectIdDto } from 'src/common/dto/mongo-object-id.dto';
+import { MongoObjectIdDto } from '../common/dto/mongo-object-id.dto';
 import { CreateProductDto } from './dto/create-product.dto';
 import { FindProductDto } from './dto/find-product.dto';
 import { ProductService } from './product.service';
