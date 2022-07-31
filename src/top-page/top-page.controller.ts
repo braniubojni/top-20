@@ -12,8 +12,8 @@ import {
 	ValidationPipe,
 } from '@nestjs/common';
 import { DocumentType } from '@typegoose/typegoose';
-import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
-import { MongoIdValidationPipe } from 'src/common/pipes/mongo-id-validation.pipe';
+import { JwtAuthGuard } from '../auth/guards/jwt.guard';
+import { MongoIdValidationPipe } from '../common/pipes/mongo-id-validation.pipe';
 import { CreatePageDto } from './dto/create-page.dto';
 import { FindTopPageDto } from './dto/find-top-page.dto';
 import { TopPageModel } from './top-page.model';

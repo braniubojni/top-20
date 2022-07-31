@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { AppModule } from '../src/app.module';
+import { AppModule } from '../../src/app.module';
 import { CreateReviewDto } from 'src/review/dto/create-review.dto';
 import { disconnect, Types } from 'mongoose';
-import { NOT_FOUND_ID } from '../src/common/exceptions/not-found.constants';
+import { NOT_FOUND_ID } from '../../src/common/exceptions/not-found.constants';
 import { AuthDto } from 'src/auth/dto/auth.dto';
 
 const productId = new Types.ObjectId();

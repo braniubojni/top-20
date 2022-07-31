@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { DocumentType, ModelType } from '@typegoose/typegoose/lib/types';
 import { InjectModel } from 'nestjs-typegoose';
-import { MongoIdValidationPipe as string } from 'src/common/pipes/mongo-id-validation.pipe';
 import { CreatePageDto } from './dto/create-page.dto';
 import { NOT_FOUND_BY_ALIAS, NOT_FOUND_PAGE } from './top-page.constants';
 import { TopLevelCategory, TopPageModel } from './top-page.model';

@@ -1,23 +1,24 @@
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { disconnect, Types } from 'mongoose';
-import { AuthDto } from 'src/auth/dto/auth.dto';
+import { AuthDto } from '../../src/auth/dto/auth.dto';
 import * as request from 'supertest';
-import { AppModule } from '../src/app.module';
+import { AppModule } from '../../src/app.module';
+import { AuthModule } from '../../src/auth/auth.module';
 
 const loginDto: AuthDto = {
-	login: 'test@ok.ru',
-	password: 'test1234',
+	login: 'test@gmail.com',
+	password: 'Abcd1234$',
 };
 
-describe('Auth Controller (e2e)', () => {
+describe('AuthController (e2e)', () => {
 	let app: INestApplication;
-	let createdId: Required<Types.ObjectId>;
 	let token: string;
 
 	beforeEach(async () => {
 		const moduleFixture: TestingModule = await Test.createTestingModule({
 			imports: [AppModule],
+			providers: [AuthModule],
 		}).compile();
 
 		app = moduleFixture.createNestApplication();
@@ -29,36 +30,45 @@ describe('Auth Controller (e2e)', () => {
 		token = body.access_token;
 	});
 
-	it('/auth/login (POST) - success', (done) => {
-		request(app.getHttpServer())
+	it('/auth/login (POST) - success', async () => {
+		await request(app.getHttpServer())
 			.post('/auth/login')
 			.send(loginDto)
 			.expect(200)
 			.then(({ body }: request.Response) => {
 				expect(body.access_token).toBeDefined();
-				done();
 			});
 	});
 
-	it('/auth/login (POST) - fail', async () => {
-		await request(app.getHttpServer())
-			.post('/auth/login')
+	it('/auth/login (POST) - fail', (done) => {
+		request(app.getHttpServer())
+			.post('/api/auth/login')
 			.send({ ...loginDto, password: 'abcd1234' })
-			.expect(401, {
-				statusCode: 401,
-				message: 'Password is incorrect!',
-				error: 'Unauthorized',
-			});
+			.expect(
+				401,
+				{
+					statusCode: 401,
+					message: 'Password is incorrect!',
+					error: 'Unauthorized',
+				},
+				() => done(),
+			);
 	});
 
-	it('/auth/login (POST) - fail', async () => {
-		await request(app.getHttpServer())
+	it('/auth/login (POST) - fail', (done) => {
+		request(app.getHttpServer())
 			.post('/auth/login')
 			.send({ ...loginDto, login: 'abc@ok.ru' })
-			.expect(404, {
-				statusCode: 404,
-				message: 'User was not found!',
-			});
+			.expect(
+				404,
+				{
+					statusCode: 404,
+					message: 'User was not found!',
+				},
+				() => {
+					done();
+				},
+			);
 	});
 
 	afterAll(() => {

@@ -16,6 +16,7 @@ import {
 	WRONG_PASSWORD,
 } from '../common/exceptions/not-found.constants';
 import { JwtService } from '@nestjs/jwt';
+import { ILoginUser } from './auth.interface';
 
 @Injectable()
 export class AuthService {
@@ -37,7 +38,7 @@ export class AuthService {
 		return newUser.save();
 	}
 
-	async loginUser({ login, password }: AuthDto): Promise<any> {
+	async loginUser({ login, password }: AuthDto): Promise<ILoginUser> {
 		const { email } = await this.validateUser(login, password);
 		return {
 			access_token: await this.jwtService.signAsync(email),

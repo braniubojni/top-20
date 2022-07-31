@@ -8,7 +8,7 @@ import {
 	UsePipes,
 	ValidationPipe,
 } from '@nestjs/common';
-import { MongoIdValidationPipe } from 'src/common/pipes/mongo-id-validation.pipe';
+import { MongoIdValidationPipe } from '../common/pipes/mongo-id-validation.pipe';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { ReviewService } from './review.service';
 

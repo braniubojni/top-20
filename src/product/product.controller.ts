@@ -10,8 +10,8 @@ import {
 	ValidationPipe,
 	UseGuards,
 } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
-import { MongoIdValidationPipe } from 'src/common/pipes/mongo-id-validation.pipe';
+import { JwtAuthGuard } from '../auth/guards/jwt.guard';
+import { MongoIdValidationPipe } from '../common/pipes/mongo-id-validation.pipe';
 import { CreateProductDto } from './dto/create-product.dto';
 import { FindProductDto } from './dto/find-product.dto';
 import { ProductService } from './product.service';
