@@ -17,6 +17,11 @@ jobs:
         with:
           node-version: '18.x'
           cache: 'yarn'
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.7.0
+        with:
+          mongodb-version: ${{ matrix.mongodb-version }}
+          mongodb-port: 27020
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Build
@@ -31,3 +36,13 @@ jobs:
         run: yarn test
       - name: Test e2e
         run: yarn test:e2e
+      - name: Mongo variables
+        env:
+          - name: MONGO_PREFIX
+          - value: mongodb+srv://
+          - name: MONGO_REST
+          - value: cluster0.pe50mqk.mongodb.net/?retryWrites=true&w=majority
+          - name: MONGO_LOGIN
+          - value: admin
+          - name: MONGO_PASSWORD
+          - value: admin
