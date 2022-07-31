@@ -42,6 +42,7 @@ jobs:
         run: yarn test
       - name: Test e2e
         run: yarn test:e2e
+
       - name: Env
         env:
           MONGO_PREFIX: mongodb+srv://
