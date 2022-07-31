@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { DocumentType, ModelType } from '@typegoose/typegoose/lib/types';
 import { InjectModel } from 'nestjs-typegoose';
-import { NOT_FOUND_ID } from 'src/common/exceptions/not-found.constants';
-import { ReviewModel } from 'src/review/review.model';
+import { NOT_FOUND_ID } from '../common/exceptions/not-found.constants';
+import { ReviewModel } from '../review/review.model';
 import { CreateProductDto } from './dto/create-product.dto';
 import { FindProductDto } from './dto/find-product.dto';
 import { ProductModel } from './product.model';
@@ -19,7 +19,7 @@ export class ProductService {
 		return product;
 	}
 
-	async findById(id: string): Promise<DocumentType<ProductModel>> {
+	async findByProdId(id: string): Promise<DocumentType<ProductModel>> {
 		const product = await this.productRepository.findById(id).exec();
 		if (!product) {
 			throw new NotFoundException(NOT_FOUND_ID);

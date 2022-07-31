@@ -49,6 +49,6 @@ export class ProductController {
 
 	@Get(':id')
 	async get(@Param('id', MongoIdValidationPipe) id: string) {
-		return await this.productService.findById(id);
+		return await this.productService.findByProdId(id);
 	}
 }
