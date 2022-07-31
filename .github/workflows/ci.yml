@@ -7,7 +7,11 @@ on:
 jobs:
   init:
     runs-on: ubuntu-latest
-
+    env:
+      MONGO_PREFIX: mongodb+srv://
+      MONGO_REST: cluster0.pe50mqk.mongodb.net/?retryWrites=true&w=majority
+      MONGO_LOGIN: admin
+      MONGO_PASSWORD: admin
     steps:
       - uses: actions/checkout@v2
         with:
@@ -22,6 +26,9 @@ jobs:
         with:
           mongodb-version: ${{ matrix.mongodb-version }}
           mongodb-port: 27020
+          mongodb-username: admin
+          mongodb-password: admin
+          mongodb-db:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Build
@@ -36,13 +43,3 @@ jobs:
         run: yarn test
       - name: Test e2e
         run: yarn test:e2e
-      - name: Mongo variables
-        env:
-          - name: MONGO_PREFIX
-          - value: mongodb+srv://
-          - name: MONGO_REST
-          - value: cluster0.pe50mqk.mongodb.net/?retryWrites=true&w=majority
-          - name: MONGO_LOGIN
-          - value: admin
-          - name: MONGO_PASSWORD
-          - value: admin
