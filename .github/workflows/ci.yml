@@ -7,39 +7,45 @@ on:
 jobs:
   init:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
+        mongodb-version: ['4.2', '4.4', '5.0']
 
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Use Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: '18.x'
-          cache: 'yarn'
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Start MongoDB
+      uses: supercharge/mongodb-github-action@1.7.0
+      with:
+        mongodb-version: ${{ matrix.mongodb-version }}
+        mongodb-port: 27020
+
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Build
         run: yarn build
       - name: Format
         run: yarn format
-      - name: Start
-        run: yarn start
-      - name: Development
-        run: yarn start:dev
-      - name: Debug
-        run: yarn start:debug
       - name: Production
         run: yarn start:prod
       - name: Linter
         run: yarn lint
       - name: Test
         run: yarn test
-      - name: Watch test's
-        run: yarn test:watch
-      - name: Test coverage
-        run: yarn test:cov
-      - name: Test debug
-        run: yarn test:debug
       - name: Test e2e
         run: yarn test:e2e
+      - name: Env
+        env:
+          MONGO_PREFIX: mongodb+srv://
+          MONGO_LOGIN: admin
+          MONGO_PASSWORD: admin
+          MONGO_REST: cluster0.pe50mqk.mongodb.net/?retryWrites=true&w=majority
+
