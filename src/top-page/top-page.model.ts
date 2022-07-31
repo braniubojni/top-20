@@ -22,6 +22,7 @@ export class HhData {
 export class TopPageAdvantages {
 	@prop()
 	title: string;
+
 	@prop()
 	description: string;
 }
@@ -41,7 +42,7 @@ export class TopPageModel extends TimeStamps {
 	alias: string;
 
 	@prop()
-	category: string;
+	categories: string;
 
 	@prop({ type: () => HhData })
 	hh?: HhData;

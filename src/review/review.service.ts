@@ -1,6 +1,5 @@
 import { HttpException, Injectable, HttpStatus } from '@nestjs/common';
 import { DocumentType, ModelType } from '@typegoose/typegoose/lib/types';
-import { Types } from 'mongoose';
 import { InjectModel } from 'nestjs-typegoose';
 import { NOT_FOUND_ID } from '../common/exceptions/not-found.constants';
 import { CreateReviewDto } from './dto/create-review.dto';
@@ -18,9 +17,7 @@ export class ReviewService {
 		return review;
 	}
 
-	async delete(
-		id: Required<Types.ObjectId>,
-	): Promise<DocumentType<ReviewModel> | null> {
+	async delete(id: string): Promise<DocumentType<ReviewModel> | null> {
 		const deletedDoc = await this.reviewModel.findByIdAndDelete(id).exec();
 		if (!deletedDoc) {
 			throw new HttpException(NOT_FOUND_ID, HttpStatus.NOT_FOUND);
@@ -29,14 +26,12 @@ export class ReviewService {
 	}
 
 	async findByProductId(
-		productId: Required<Types.ObjectId>,
+		productId: string,
 	): Promise<DocumentType<ReviewModel>[]> {
-		return await this.reviewModel
-			.find({ productId: new Types.ObjectId(productId) })
-			.exec();
+		return await this.reviewModel.find({ productId }).exec();
 	}
 
-	async deleteByProductId(productId: Required<Types.ObjectId>) {
+	async deleteByProductId(productId: string) {
 		const deletedDoc = await this.getById(productId);
 
 		return this.reviewModel
@@ -46,9 +41,7 @@ export class ReviewService {
 			.exec();
 	}
 
-	private async getById(
-		id: Required<Types.ObjectId>,
-	): Promise<DocumentType<ReviewModel> | null> {
+	private async getById(id: string): Promise<DocumentType<ReviewModel> | null> {
 		const found = await this.reviewModel.findById(id).exec();
 		if (!found) {
 			throw new HttpException(NOT_FOUND_ID, HttpStatus.NOT_FOUND);

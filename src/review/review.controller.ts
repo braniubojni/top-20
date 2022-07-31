@@ -5,12 +5,10 @@ import {
 	Get,
 	Param,
 	Post,
-	UseGuards,
 	UsePipes,
 	ValidationPipe,
 } from '@nestjs/common';
-import { Types } from 'mongoose';
-import { JwtAuthGuard } from '../auth/guards/jwt.guard';
+import { MongoIdValidationPipe } from 'src/common/pipes/mongo-id-validation.pipe';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { ReviewService } from './review.service';
 
@@ -25,17 +23,19 @@ export class ReviewController {
 	}
 
 	@Delete(':id')
-	async delete(@Param('id') id: Required<Types.ObjectId>) {
+	async delete(@Param('id', MongoIdValidationPipe) id: string) {
 		return this.reviewService.delete(id);
 	}
 
 	@Get('byProduct/:productId')
-	async get(@Param('productId') productId: Required<Types.ObjectId>) {
+	async get(@Param('productId', MongoIdValidationPipe) productId: string) {
 		return this.reviewService.findByProductId(productId);
 	}
 
 	@Delete('byProduct/:productId')
-	async deleteAll(@Param('productId') productId: Required<Types.ObjectId>) {
+	async deleteAll(
+		@Param('productId', MongoIdValidationPipe) productId: string,
+	) {
 		return this.reviewService.deleteByProductId(productId);
 	}
 }

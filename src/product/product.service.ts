@@ -1,8 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { DocumentType, ModelType } from '@typegoose/typegoose/lib/types';
-import { Types } from 'mongoose';
 import { InjectModel } from 'nestjs-typegoose';
-import { MongoObjectIdDto } from 'src/common/dto/mongo-object-id.dto';
 import { NOT_FOUND_ID } from 'src/common/exceptions/not-found.constants';
 import { ReviewModel } from 'src/review/review.model';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -21,7 +19,7 @@ export class ProductService {
 		return product;
 	}
 
-	async findById(id: MongoObjectIdDto): Promise<DocumentType<ProductModel>> {
+	async findById(id: string): Promise<DocumentType<ProductModel>> {
 		const product = await this.productRepository.findById(id).exec();
 		if (!product) {
 			throw new NotFoundException(NOT_FOUND_ID);
@@ -29,7 +27,7 @@ export class ProductService {
 		return product;
 	}
 
-	async deleteById(id: MongoObjectIdDto): Promise<DocumentType<ProductModel>> {
+	async deleteById(id: string): Promise<DocumentType<ProductModel>> {
 		const removedProduct = await this.productRepository
 			.findByIdAndDelete(id)
 			.exec();
@@ -40,7 +38,7 @@ export class ProductService {
 	}
 
 	async updateById(
-		id: MongoObjectIdDto,
+		id: string,
 		dto: CreateProductDto,
 	): Promise<DocumentType<ProductModel>> {
 		const updatedProduct = await this.productRepository
@@ -55,8 +53,7 @@ export class ProductService {
 	}
 
 	async findWithReviews(dto: FindProductDto) {
-		console.log('Worked');
-		return (await this.productRepository
+		const product = (await this.productRepository
 			.aggregate([
 				{
 					$match: {
@@ -103,5 +100,6 @@ export class ProductService {
 			reviewCount: number;
 			reviewAvg: number;
 		})[];
+		return product;
 	}
 }
