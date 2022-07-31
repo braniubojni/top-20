@@ -8,10 +8,7 @@ jobs:
   init:
     runs-on: ubuntu-latest
     env:
-      MONGO_PREFIX: mongodb+srv://
-      MONGO_REST: cluster0.pe50mqk.mongodb.net/?retryWrites=true&w=majority
-      MONGO_LOGIN: admin
-      MONGO_PASSWORD: admin
+      MONGO_URI: mongodb+srv://admin:admin@cluster0.pe50mqk.mongodb.net/?retryWrites=true&w=majority
     steps:
       - uses: actions/checkout@v2
         with:
@@ -21,14 +18,6 @@ jobs:
         with:
           node-version: '18.x'
           cache: 'yarn'
-      - name: Start MongoDB
-        uses: supercharge/mongodb-github-action@1.7.0
-        with:
-          mongodb-version: ${{ matrix.mongodb-version }}
-          mongodb-port: 27020
-          mongodb-username: admin
-          mongodb-password: admin
-          mongodb-db:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Build

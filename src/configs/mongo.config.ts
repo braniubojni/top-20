@@ -11,13 +11,8 @@ export const getMongoConfig = async (
 };
 
 const getMongoString = (configService: ConfigService) => {
-	return !!configService.get('MONGO_REST')
-		? configService.get('MONGO_PREFIX') +
-				configService.get('MONGO_LOGIN') +
-				':' +
-				configService.get('MONGO_PASSWORD') +
-				'@' +
-				configService.get('MONGO_REST')
+	return !!configService.get('MONGO_URI')
+		? configService.get('MONGO_URI')
 		: 'mongodb://' +
 				configService.get('MONGO_LOGIN') +
 				':' +
