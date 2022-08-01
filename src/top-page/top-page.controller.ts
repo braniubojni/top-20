@@ -28,7 +28,7 @@ export class TopPageController {
 	async create(
 		@Body() dto: CreatePageDto,
 	): Promise<DocumentType<TopPageModel>> {
-		return await this.topPageService.createPage(dto);
+		return this.topPageService.createPage(dto);
 	}
 
 	@UseGuards(JwtAuthGuard)
@@ -36,14 +36,14 @@ export class TopPageController {
 	async findById(
 		@Param('id', MongoIdValidationPipe) id: string,
 	): Promise<DocumentType<TopPageModel>> {
-		return await this.topPageService.getPageById(id);
+		return this.topPageService.getPageById(id);
 	}
 
 	@Get('byAlias/:alias')
 	async byAlias(
 		@Param('alias') alias: string,
 	): Promise<DocumentType<TopPageModel>> {
-		return await this.topPageService.byAlias(alias);
+		return this.topPageService.byAlias(alias);
 	}
 
 	@UseGuards(JwtAuthGuard)
@@ -52,18 +52,18 @@ export class TopPageController {
 		@Param('id', MongoIdValidationPipe) id: string,
 		@Body() dto: CreatePageDto,
 	) {
-		return await this.topPageService.updatePage(id, dto);
+		return this.topPageService.updatePage(id, dto);
 	}
 
 	@UseGuards(JwtAuthGuard)
 	@Delete(':id')
 	async delete(@Param('id', MongoIdValidationPipe) id: string) {
-		return await this.topPageService.deletePage(id);
+		return this.topPageService.deletePage(id);
 	}
 
 	@HttpCode(200)
 	@Post()
 	async find(@Body() dto: FindTopPageDto) {
-		return await this.topPageService.findByCategory(dto.firstCategory);
+		return this.topPageService.findByCategory(dto.firstCategory);
 	}
 }

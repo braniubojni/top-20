@@ -22,18 +22,18 @@ export class AuthController {
 	@Post('registration')
 	@UsePipes(new PasswordValidationPipe())
 	async registration(@Body() dto: AuthDto) {
-		return await this.authService.createUser(dto);
+		return this.authService.createUser(dto);
 	}
 
 	@HttpCode(200)
 	@Post('login')
 	async login(@Body() dto: AuthDto) {
-		return await this.authService.loginUser(dto);
+		return this.authService.loginUser(dto);
 	}
 
 	@UseGuards(new UserGuard())
 	@Delete(':userId')
 	async removeUser(@Param('userId', MongoIdValidationPipe) userId: string) {
-		return await this.authService.removeUser(userId);
+		return this.authService.removeUser(userId);
 	}
 }
