@@ -96,7 +96,6 @@ describe('AppController (e2e)', () => {
 	});
 
 	it('/review/:id (DELETE) - fail', () => {
-		const id = new Types.ObjectId().toHexString();
 		return request(app.getHttpServer())
 			.delete('/review/' + new Types.ObjectId().toHexString())
 			.expect(404, {

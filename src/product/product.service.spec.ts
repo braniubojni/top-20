@@ -1,7 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { Types } from 'mongoose';
 import { getModelToken } from 'nestjs-typegoose';
-import { NOT_FOUND_ID } from 'src/common/exceptions/not-found.constants';
 import { ProductService } from './product.service';
 
 describe('ProductService', () => {
@@ -41,7 +40,7 @@ describe('ProductService', () => {
 		productRepositoryFactory()
 			.findById()
 			.exec.mockReturnValueOnce([{ productId: id }]);
-		const res = await service.findByProdId(fake as unknown as string);
+		await service.findByProdId(fake as unknown as string);
 		expect(404);
 	});
 });

@@ -1,6 +1,6 @@
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { disconnect, Types } from 'mongoose';
+import { disconnect } from 'mongoose';
 import { AuthDto } from '../../src/auth/dto/auth.dto';
 import * as request from 'supertest';
 import { AppModule } from '../../src/app.module';
@@ -13,7 +13,6 @@ const loginDto: AuthDto = {
 
 describe('AuthController (e2e)', () => {
 	let app: INestApplication;
-	let token: string;
 
 	beforeEach(async () => {
 		const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -23,11 +22,6 @@ describe('AuthController (e2e)', () => {
 
 		app = moduleFixture.createNestApplication();
 		await app.init();
-
-		const { body } = await request(app.getHttpServer())
-			.post('/auth/login')
-			.send(loginDto);
-		token = body.access_token;
 	});
 
 	it('/auth/login (POST) - success', async () => {

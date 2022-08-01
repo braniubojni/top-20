@@ -9,7 +9,7 @@ import { ID_VALIDATION_ERR } from './validation.constants';
 
 @Injectable()
 export class MongoIdValidationPipe implements PipeTransform {
-	transform(value: any, metadata: ArgumentMetadata) {
+	transform(value: string, metadata: ArgumentMetadata) {
 		if (metadata.type !== 'param') {
 			return value;
 		}

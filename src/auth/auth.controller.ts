@@ -9,7 +9,7 @@ import {
 	UsePipes,
 	ValidationPipe,
 } from '@nestjs/common';
-import { MongoIdValidationPipe } from 'src/common/pipes/mongo-id-validation.pipe';
+import { MongoIdValidationPipe } from '../common/pipes/mongo-id-validation.pipe';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
 import { UserGuard } from './guards/user.guard';

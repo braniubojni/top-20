@@ -32,7 +32,7 @@ export class TopPageService {
 	}
 
 	async byAlias(alias: string) {
-		const page = await this.topPageModel.findOne({ alias });
+		const page = await this.topPageModel.findOne({ alias }).exec();
 		if (!page) {
 			this.NotFoundPage(NOT_FOUND_BY_ALIAS);
 		}
