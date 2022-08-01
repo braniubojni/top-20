@@ -45,6 +45,11 @@ export class AuthService {
 		};
 	}
 
+	async removeUser(userId: string) {
+		const user = this.userModel.findByIdAndDelete(userId).exec();
+		return user;
+	}
+
 	private async getOneUser(
 		email: string,
 	): Promise<DocumentType<UserModel> | null> {

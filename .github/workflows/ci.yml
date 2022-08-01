@@ -22,10 +22,6 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Build
         run: yarn build
-      - name: Format
-        run: yarn format
-      - name: Production
-        run: yarn start:prod
       - name: Linter
         run: yarn lint
       - name: Test
