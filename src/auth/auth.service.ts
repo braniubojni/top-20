@@ -3,6 +3,7 @@ import {
 	HttpException,
 	HttpStatus,
 	Injectable,
+	NotFoundException,
 	UnauthorizedException,
 } from '@nestjs/common';
 import { ModelType, DocumentType } from '@typegoose/typegoose/lib/types';
@@ -47,6 +48,9 @@ export class AuthService {
 
 	async removeUser(userId: string) {
 		const user = this.userModel.findByIdAndDelete(userId).exec();
+		if (!user) {
+			throw new NotFoundException();
+		}
 		return user;
 	}
 
