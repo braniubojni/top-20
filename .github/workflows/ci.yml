@@ -29,4 +29,4 @@ jobs:
       - name: Test
         run: yarn test
       - name: Test e2e
-        run: test:e2e
+        run: yarn test:e2e
