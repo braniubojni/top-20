@@ -8,8 +8,8 @@
 	"scripts": {
 		"build": "nest build",
 		"format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-		"start": "nest start",
-		"start:dev": "nest start --watch",
+		"start": "cross-env NODE_ENV=production nest start",
+		"start:dev": "cross-env NODE_ENV=development nest start --watch",
 		"start:debug": "nest start --debug --watch",
 		"start:prod": "node dist/main",
 		"lint": "tslint --fix --project .",
@@ -17,7 +17,9 @@
 		"test:watch": "jest --watch",
 		"test:cov": "jest --coverage",
 		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-		"test:e2e": "jest --config ./test/jest-e2e.json"
+		"pretest:e2e": "docker-compose up -d test-mongo-db",
+		"test:e2e": "cross-env NODE_ENV=test jest --config ./test/jest-e2e.json",
+		"posttest:e2e": "docker-compose stop test-mongo-db && docker-compose rm -f test-mongo-db"
 	},
 	"dependencies": {
 		"@nestjs/common": "^8.0.0",
@@ -30,7 +32,9 @@
 		"bcryptjs": "^2.4.3",
 		"class-transformer": "^0.5.1",
 		"class-validator": "^0.13.2",
+		"cross-env": "^7.0.3",
 		"mongoose": "^6.3.8",
+		"nest-typed-config": "^2.4.2",
 		"nestjs-typegoose": "^7.1.38",
 		"passport": "^0.6.0",
 		"passport-jwt": "^4.0.0",

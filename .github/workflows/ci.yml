@@ -8,7 +8,9 @@ jobs:
   init:
     runs-on: ubuntu-latest
     env:
-      MONGO_URI: mongodb+srv://admin:admin@cluster0.pe50mqk.mongodb.net/?retryWrites=true&w=majority
+      MONGO_INITDB_ROOT_USERNAME: admintest
+      MONGO_INITDB_ROOT_PASSWORD: admintest
+      MONGO_AUTHDATABASE: admintest
     steps:
       - uses: actions/checkout@v2
         with:
@@ -27,4 +29,4 @@ jobs:
       - name: Test
         run: yarn test
       - name: Test e2e
-        run: yarn test:e2e
+        run: test:e2e

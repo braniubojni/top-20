@@ -1,14 +1,17 @@
 import { HttpServer, HttpStatus, INestApplication } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { disconnect, Types } from 'mongoose';
-import { AuthDto } from '../../src/auth/dto/auth.dto';
+import { TypegooseModule } from 'nestjs-typegoose';
 import * as request from 'supertest';
 import { AppModule } from '../../src/app.module';
 import { AuthModule } from '../../src/auth/auth.module';
+import { AuthDto } from '../../src/auth/dto/auth.dto';
 import {
 	NOT_FOUND_USR,
 	WRONG_PASSWORD,
 } from '../../src/common/exceptions/not-found.constants';
+import { getMongoConfig } from '../../src/configs/mongo.config';
 
 const loginDto: AuthDto = {
 	login: 'test' + Math.random() + '@gmail.com',
@@ -22,7 +25,15 @@ describe('AuthController (e2e)', () => {
 
 	beforeEach(async () => {
 		const moduleFixture: TestingModule = await Test.createTestingModule({
-			imports: [AppModule],
+			imports: [
+				AppModule,
+				TypegooseModule.forRootAsync({
+					imports: [ConfigModule],
+					inject: [ConfigService],
+					useFactory: getMongoConfig,
+				}),
+				ConfigModule.forRoot({}),
+			],
 			providers: [AuthModule],
 		}).compile();
 

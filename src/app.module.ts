@@ -9,12 +9,12 @@ import { getMongoConfig } from './configs/mongo.config';
 
 @Module({
 	imports: [
-		ConfigModule.forRoot({}),
 		TypegooseModule.forRootAsync({
 			imports: [ConfigModule],
 			inject: [ConfigService],
 			useFactory: getMongoConfig,
 		}),
+		ConfigModule.forRoot({}),
 		AuthModule,
 		TopPageModule,
 		ProductModule,
