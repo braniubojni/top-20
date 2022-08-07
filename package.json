@@ -17,9 +17,9 @@
 		"test:watch": "jest --watch",
 		"test:cov": "jest --coverage",
 		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-		"pretest:e2e": "docker-compose up -d test-mongo-db",
+		"pretest:e2e": "docker-compose up -d mongo-db",
 		"test:e2e": "cross-env NODE_ENV=test jest --config ./test/jest-e2e.json",
-		"posttest:e2e": "docker-compose stop test-mongo-db && docker-compose rm -f test-mongo-db"
+		"posttest:e2e": "docker-compose stop mongo-db && docker-compose rm -f mongo-db"
 	},
 	"dependencies": {
 		"@nestjs/common": "^8.0.0",

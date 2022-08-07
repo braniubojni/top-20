@@ -27,12 +27,10 @@ describe('AuthController (e2e)', () => {
 		const moduleFixture: TestingModule = await Test.createTestingModule({
 			imports: [
 				AppModule,
-				TypegooseModule.forRootAsync({
-					imports: [ConfigModule],
-					inject: [ConfigService],
-					useFactory: getMongoConfig,
+				ConfigModule.forRoot({
+					envFilePath: `${process.env.NODE_ENV}.env`,
 				}),
-				ConfigModule.forRoot({}),
+				TypegooseModule.forRoot(getMongoConfig(new ConfigService())),
 			],
 			providers: [AuthModule],
 		}).compile();

@@ -1,13 +1,9 @@
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypegooseModuleOptions } from 'nestjs-typegoose';
 
-export const getMongoConfig = async (
-	configService: ConfigService,
-): Promise<TypegooseModuleOptions> => {
-	return {
-		uri: getMongoString(configService),
-		...getMongoOptions(),
-	};
+export const getMongoConfig = (configService: ConfigService): string => {
+	return getMongoString(configService);
 };
 
 const getMongoString = (configService: ConfigService) => {
@@ -25,7 +21,7 @@ const getMongoString = (configService: ConfigService) => {
 	);
 };
 
-const getMongoOptions = () => ({
+export const getMongoOptions = () => ({
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 });
