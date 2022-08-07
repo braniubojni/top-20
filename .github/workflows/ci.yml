@@ -8,9 +8,9 @@ jobs:
   init:
     runs-on: ubuntu-latest
     env:
-      MONGO_INITDB_ROOT_USERNAME: admintest
-      MONGO_INITDB_ROOT_PASSWORD: admintest
-      MONGO_AUTHDATABASE: admintest
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_AUTHDATABASE: admin
     steps:
       - uses: actions/checkout@v2
         with:
