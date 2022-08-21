@@ -8,7 +8,7 @@ import {
 	UsePipes,
 	ValidationPipe,
 } from '@nestjs/common';
-import { TelegramService } from 'src/telegram/telegram.service';
+import { TelegramService } from '../telegram/telegram.service';
 import { MongoIdValidationPipe } from '../common/pipes/mongo-id-validation.pipe';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { ReviewService } from './review.service';
