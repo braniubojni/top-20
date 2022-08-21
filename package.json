@@ -30,6 +30,7 @@
 		"@nestjs/platform-express": "^7.5.5",
 		"@typegoose/typegoose": "^9.9.0",
 		"@types/app-root-path": "^1.2.4",
+		"@types/sharp": "^0.30.5",
 		"app-root-path": "^3.1.0",
 		"bcryptjs": "^2.4.3",
 		"class-transformer": "^0.5.1",
@@ -44,7 +45,8 @@
 		"passport-jwt": "^4.0.0",
 		"reflect-metadata": "^0.1.13",
 		"rimraf": "^3.0.2",
-		"rxjs": "^7.2.0"
+		"rxjs": "^7.2.0",
+		"sharp": "^0.30.7"
 	},
 	"devDependencies": {
 		"@nestjs/cli": "^8.0.0",
