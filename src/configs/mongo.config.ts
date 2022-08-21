@@ -1,6 +1,4 @@
-import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { TypegooseModuleOptions } from 'nestjs-typegoose';
 
 export const getMongoConfig = (configService: ConfigService): string => {
 	return getMongoString(configService);

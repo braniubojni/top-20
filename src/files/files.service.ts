@@ -26,7 +26,7 @@ export class FilesService {
 		return res;
 	}
 
-	convertToWebP(file: Buffer): Promise<Buffer> {
+	async convertToWebP(file: Buffer): Promise<Buffer> {
 		// FIXME: In future deligate to separate service convert
 		return sharp(file).webp().toBuffer();
 	}
