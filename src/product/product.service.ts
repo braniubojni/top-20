@@ -16,6 +16,7 @@ export class ProductService {
 
 	async create(dto: CreateProductDto): Promise<DocumentType<ProductModel>> {
 		const product = await this.productRepository.create(dto);
+		console.log(product, '< res\n');
 		return product;
 	}
 

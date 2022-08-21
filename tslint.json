@@ -1,17 +1,13 @@
 {
 	"rules": {
 		"no-var-requires": true,
-		"no-any": true,
+		"no-any": false,
 		"promise-function-async": true,
 		"await-promise": true,
 		"curly": true,
 		"prefer-for-dcof": true,
 		"forin": true,
-		"no-console": [
-			true,
-			"log",
-			"error"
-		],
+		"no-console": [true, "log", "error"],
 		"no-debugger": true,
 		"no-duplicate-super": true,
 		"no-duplicate-switch-case": true,
@@ -30,10 +26,7 @@
 		"prefer-const": true,
 		"arrow-return-shorthand": true,
 		"class-name": true,
-		"file-name-casing": [
-			true,
-			"kebab-case"
-		],
+		"file-name-casing": [true, "kebab-case"],
 		"prefer-switch": [
 			true,
 			{
@@ -42,29 +35,14 @@
 		],
 		"switch-final-break": true,
 		"import-spacing": true,
-		"max-line-length": [
-			true,
-			120
-		],
+		"max-line-length": [true, 120],
 		"no-trailing-whitespace": false,
-		"quotemark": [
-			true,
-			"single"
-		],
-		"semicolon": [
-			true,
-			"always"
-		],
+		"quotemark": [true, "single"],
+		"semicolon": [true, "always"],
 		"trailing-comma": false,
-		"indent": [
-			true,
-			"tabs",
-			4
-		],
+		"indent": [true, "tabs", 4],
 		"linterOptions": {
-			"exclude": [
-				"./src/**/*.d.ts"
-			]
+			"exclude": ["./src/**/*.d.ts"]
 		}
 	}
 }
