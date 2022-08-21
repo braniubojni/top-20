@@ -13,7 +13,6 @@ export class TelegramService {
 	}
 
 	async sendMessage(msg: string, chatId: string = this.options.chatId) {
-		const res = await this.bot.telegram.sendMessage(chatId, msg);
-		console.log(res, '<00 res\n');
+		await this.bot.telegram.sendMessage(chatId, msg);
 	}
 }
