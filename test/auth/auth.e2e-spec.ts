@@ -13,6 +13,7 @@ import {
 } from '../../src/common/exceptions/not-found.constants';
 import { getMongoConfig } from '../../src/configs/mongo.config';
 
+
 const loginDto: AuthDto = {
 	login: 'test' + Math.random() + '@gmail.com',
 	password: 'Abcd1234$',
